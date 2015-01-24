@@ -20,8 +20,8 @@ public class PuzzlePiece : MonoBehaviour {
 	private PuzzlePiece[] _pieces;
 	private Joint[] _joints;
 	private Ship _ship;
-	private HashSet<PuzzlePiece> _compatibleOverlappingPieces;
-	private HashSet<PuzzlePiece> _incompatibleOverlappingPieces;
+	private List<PuzzlePiece> _compatibleOverlappingPieces;
+	private List<PuzzlePiece> _incompatibleOverlappingPieces;
 
 	//0: left, 1: front, 2: right, 3: back
 
@@ -34,8 +34,8 @@ public class PuzzlePiece : MonoBehaviour {
 
 		_pieces = new PuzzlePiece[4];
 		_joints = new Joint[]{LeftEdge, FrontEdge, RightEdge, BackEdge};
-		_compatibleOverlappingPieces = new HashSet<PuzzlePiece>();
-		_incompatibleOverlappingPieces = new HashSet<PuzzlePiece>();
+		_compatibleOverlappingPieces = new List<PuzzlePiece>();
+		_incompatibleOverlappingPieces = new List<PuzzlePiece>();
 	}
 
 
@@ -60,8 +60,10 @@ public class PuzzlePiece : MonoBehaviour {
 				piece._spriteRend.color = Color.green;
 				_compatibleOverlappingPieces.Add(piece);
 			}
-			else
+			else{
 				piece._spriteRend.color = Color.red;
+				_incompatibleOverlappingPieces.Add(piece);
+			}
 		}
 	}
 
@@ -86,9 +88,16 @@ public class PuzzlePiece : MonoBehaviour {
 			_spriteRend.sortingOrder = _spriteRend.sortingOrder+1;
 		}
 		else{
-			_compatibleOverlappingPieces.Clear();
+			foreach(PuzzlePiece p in _compatibleOverlappingPieces)
+				p._spriteRend.color = Color.white;
+			foreach(PuzzlePiece p in _incompatibleOverlappingPieces)
+				p._spriteRend.color = Color.white;
+
 			_coll.isTrigger = false;
 			_spriteRend.sortingOrder = _spriteRend.sortingOrder-1;
+
+			if(_compatibleOverlappingPieces.Count == 1)
+				Attach(_compatibleOverlappingPieces[0]);
 		}
 	}
 	
@@ -98,8 +107,11 @@ public class PuzzlePiece : MonoBehaviour {
 			//only if free slot
 			if(_pieces[i] == null){
 				for(int j=0;j<4;j++){
-					if(piece._pieces[j] == null && ((int)piece._joints[j] + (int)_joints[i]) == 0)
+
+					if(piece._pieces[j] == null && ((int)piece._joints[j] + (int)_joints[i]) == 0){
+					//	Debug.Log("Compatible "+i+" "+j+": "+((int)_joints[i])+" "+((int)piece._joints[j]));
 						edges.Add(new int[]{i,j});
+					}
 				}
 			}
 		}
@@ -110,25 +122,29 @@ public class PuzzlePiece : MonoBehaviour {
 		List<int[]> matches = CompatibleEdges(piece);
 		if(matches.Count != 0){
 
-			piece.transform.parent = transform;
+			transform.parent = piece.transform;
 			float newRotation = 0;
 			Vector2 newPos = Vector2.zero;
 
 			for(int i=0;i<matches.Count;i++)
 				Debug.Log("Matches: "+matches[i][0]+" "+matches[i][1]);
+
+			//MATCH 1
 			if(matches.Count == 1){
 				int[] info = matches[0];
 
-				newPos = CalcNewPosition(info[0]);
+				newPos = CalcNewPosition(info[1]);
 				newRotation = CalcNewRotation(info, piece);
-
+				_ship = piece._ship;
+				_pieces[info[0]] = piece;
+				piece._pieces[info[1]] = this;
 			}
 
-			piece.transform.localPosition = newPos;
-			piece.transform.localRotation = Quaternion.Euler(0,0,newRotation);
-			piece.rigidbody2D.isKinematic = true;
+			transform.localPosition = newPos;
+			transform.localRotation = Quaternion.Euler(0,0,newRotation);
+
 			rigidbody2D.isKinematic = true;
-			Destroy(piece._drag);
+			Destroy(_drag);
 
 
 		}
@@ -144,9 +160,9 @@ public class PuzzlePiece : MonoBehaviour {
 			return 180;
 
 		if(info[0] - info[1] == -1)
-			return 270;
+			return 90;
 
-		return 90;
+		return 270;
 	}
 
 	private Vector2 CalcNewPosition(int direction){
