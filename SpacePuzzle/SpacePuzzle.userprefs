@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\PuzzlePiece.cs">
+    <Files>
+      <File FileName="Assets\Script\PuzzlePiece.cs" Line="21" Column="15" />
+      <File FileName="Assets\Script\Draggable.cs" Line="34" Column="30" />
+      <File FileName="Assets\Script\TestScript.cs" Line="11" Column="98" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
