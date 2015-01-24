@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\Draggable.cs" />
+     <Compile Include="Assets\Script\FuelTank.cs" />
      <Compile Include="Assets\Script\GravityAttractor.cs" />
      <Compile Include="Assets\Script\GravityObject.cs" />
+     <Compile Include="Assets\Script\Propeller.cs" />
      <Compile Include="Assets\Script\PuzzlePiece.cs" />
      <Compile Include="Assets\Script\Ship.cs" />
      <Compile Include="Assets\Script\TestScript.cs" />

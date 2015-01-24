@@ -4,6 +4,7 @@ using System.Collections;
 public class GravityAttractor : MonoBehaviour {
 
 	public float Gravity;
+	public float Radius;
 
 
 	// Use this for initialization

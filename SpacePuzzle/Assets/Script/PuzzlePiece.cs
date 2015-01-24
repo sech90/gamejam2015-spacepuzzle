@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Collections.Generic;
 
 public enum Joint {FLAT=5, TRIANGLE=1, CIRCLE=2, SQUARE=3, EXAGON=4, HOLE_TRIANGLE=-1, HOLE_CIRCLE=-2, HOLE_SQUARE=-3, HOLE_EXAGON=-4};
 
@@ -14,6 +13,7 @@ public class PuzzlePiece : MonoBehaviour {
 	public Joint RightEdge = Joint.FLAT;
 	public Joint BackEdge = Joint.FLAT;
 
+	private float _cumulatedMass;
 	private SpriteRenderer _spriteRend;
 	private Draggable _drag;
 	private BoxCollider2D _coll;
@@ -30,7 +30,6 @@ public class PuzzlePiece : MonoBehaviour {
 		_coll = GetComponent<BoxCollider2D>();
 		_spriteRend = GetComponent<SpriteRenderer>();
 		_ship = GetComponent<Ship>();
-
 
 		_pieces = new PuzzlePiece[4];
 		_joints = new Joint[]{LeftEdge, FrontEdge, RightEdge, BackEdge};
@@ -143,8 +142,13 @@ public class PuzzlePiece : MonoBehaviour {
 			transform.localPosition = newPos;
 			transform.localRotation = Quaternion.Euler(0,0,newRotation);
 
+			rigidbody2D.mass = 0;
 			rigidbody2D.isKinematic = true;
+			gameObject.layer = LayerMask.NameToLayer("ShipPiece");
 			Destroy(_drag);
+			Destroy(rigidbody2D);
+
+			_ship.UpdatePieces();
 
 
 		}

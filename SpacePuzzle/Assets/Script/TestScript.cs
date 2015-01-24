@@ -8,7 +8,7 @@ public class TestScript : MonoBehaviour {
 	// Use this for initialization
 
 	void Start () {
-		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Ignore Collision"));
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("ShipPiece"), LayerMask.NameToLayer("ShipPiece"));
 	}
 	
 	// Update is called once per frame
