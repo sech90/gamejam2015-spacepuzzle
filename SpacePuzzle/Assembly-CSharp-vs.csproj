@@ -46,14 +46,23 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Asteroid.cs" />
+     <Compile Include="Assets\Script\AttachPoint.cs" />
+     <Compile Include="Assets\Script\CameraFollow.cs" />
+     <Compile Include="Assets\Script\Destroyer.cs" />
      <Compile Include="Assets\Script\Draggable.cs" />
+     <Compile Include="Assets\Script\ExplosiveBall.cs" />
      <Compile Include="Assets\Script\FuelTank.cs" />
      <Compile Include="Assets\Script\GravityAttractor.cs" />
      <Compile Include="Assets\Script\GravityObject.cs" />
+     <Compile Include="Assets\Script\PhantomPiece.cs" />
      <Compile Include="Assets\Script\Propeller.cs" />
      <Compile Include="Assets\Script\PuzzlePiece.cs" />
+     <Compile Include="Assets\Script\RandomMotion.cs" />
      <Compile Include="Assets\Script\Ship.cs" />
      <Compile Include="Assets\Script\TestScript.cs" />
+     <Compile Include="Assets\Script\UIManager.cs" />
+     <Compile Include="Assets\Script\Utility.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

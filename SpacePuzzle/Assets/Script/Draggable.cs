@@ -15,14 +15,15 @@ public class Draggable : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
+		IsDragging = true;
 		if(_puzzle != null)
 			_puzzle.SetDragging(true);
-		IsDragging = true;
 		offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
 	}
 	
 	void OnMouseDrag()
 	{
+		Debug.Log("Dragging "+name);
 		Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 		Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 		transform.position = curPosition;
@@ -30,8 +31,9 @@ public class Draggable : MonoBehaviour {
 	}
 
 	void OnMouseUp(){
+		IsDragging = false;
 		if(_puzzle != null)
 			_puzzle.SetDragging(false);
-		IsDragging = false;
+
 	}
 }

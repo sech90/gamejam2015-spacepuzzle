@@ -11,7 +11,6 @@ public class GravityObject : MonoBehaviour {
 	}
 
 	void Update () {
-		float mass = rigidbody2D.mass;
 		float gravity = _attractor.Gravity;
 
 		Vector2 distance = (Vector2)(_attractor.transform.position - transform.position);
